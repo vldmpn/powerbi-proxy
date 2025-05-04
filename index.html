@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+  <script>
+    // ✅ Step 1: Add your allowed emails here
+    const WHITELIST = ["vsp911@gmail.com", "vl_p@outlook.com"];
+
+    function verifyAccess() {
+      const email = prompt("Enter your authorized email:");
+      if (!WHITELIST.includes(email)) {
+        document.body.innerHTML = "<h1>Access Denied</h1>";
+        return;
+      }
+
+      // ✅ Step 2: Add your real Power BI embed link here
+      fetch("https://app.powerbi.com/view?r=eyJrIjoiOGMwMWJmYzItYTE3ZC00MTFhLWE5ZWQtNTU4MDRkYjRkYjUzIiwidCI6ImU2YzY3YTIxLTJhNzAtNDY0OS1hODgyLTZjYjEzMGYxMjNkMSIsImMiOjl9")
+        .then(r => r.text())
+        .then(html => {
+          const sanitized = html
+            .replace(/app\.powerbi\.com/g, window.location.host)
+            .replace(/powerbi/gi, "analytics"); // hide the URL
+          document.write(sanitized);
+        });
+    }
+  </script>
+</head>
+<body onload="verifyAccess()"></body>
+</html>
